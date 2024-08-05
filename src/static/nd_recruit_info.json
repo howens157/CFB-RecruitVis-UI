@@ -1,141 +1,141 @@
 {
-    "lat": 41.698378,
-    "lng": -86.2339425,
-    "logo": "http://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
-    "color": "#0c2340",
-    "alt_color": "#c99700",
-    "playerData": [
-        {
-            "state_name": "KY",
-            "count": 1
-        },
-        {
-            "state_name": "MO",
-            "count": 7
-        },
-        {
-            "state_name": "VA",
-            "count": 5
-        },
-        {
-            "state_name": "AZ",
-            "count": 3
-        },
-        {
-            "state_name": "HI",
-            "count": 2
-        },
-        {
-            "state_name": "PA",
-            "count": 3
-        },
-        {
-            "state_name": "IL",
-            "count": 6
-        },
-        {
-            "state_name": "CT",
-            "count": 1
-        },
-        {
-            "state_name": "NJ",
-            "count": 6
-        },
-        {
-            "state_name": "NE",
-            "count": 2
-        },
-        {
-            "state_name": "CO",
-            "count": 1
-        },
-        {
-            "state_name": "MS",
-            "count": 1
-        },
-        {
-            "state_name": "CA",
-            "count": 12
-        },
-        {
-            "state_name": "MA",
-            "count": 5
-        },
-        {
-            "state_name": "DC",
-            "count": 1
-        },
-        {
-            "state_name": "IN",
-            "count": 9
-        },
-        {
-            "state_name": "MI",
-            "count": 4
-        },
-        {
-            "state_name": "GA",
-            "count": 7
-        },
-        {
-            "state_name": "OH",
-            "count": 8
-        },
-        {
-            "state_name": "TN",
-            "count": 2
-        },
-        {
-            "state_name": "FL",
-            "count": 3
-        },
-        {
-            "state_name": "MN",
-            "count": 1
-        },
-        {
-            "state_name": "LA",
-            "count": 2
-        },
-        {
-            "state_name": "MD",
-            "count": 2
-        },
-        {
-            "state_name": "RI",
-            "count": 1
-        },
-        {
-            "state_name": "SC",
-            "count": 1
-        },
-        {
-            "state_name": "WA",
-            "count": 1
-        },
-        {
-            "state_name": "WI",
-            "count": 1
-        },
-        {
-            "state_name": "IA",
-            "count": 1
-        },
-        {
-            "state_name": "TX",
-            "count": 8
-        },
-        {
-            "state_name": "NC",
-            "count": 7
-        },
-        {
-            "state_name": "NY",
-            "count": 1
-        },
-        {
-            "state_name": "KS",
-            "count": 1
-        }
-    ]
+  "lat": 41.698378,
+  "lng": -86.2339425,
+  "logo": "http://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
+  "color": "#0c2340",
+  "alt_color": "#c99700",
+  "playerData": [
+    {
+      "state_name": "KY",
+      "count": 1
+    },
+    {
+      "state_name": "MO",
+      "count": 7
+    },
+    {
+      "state_name": "VA",
+      "count": 5
+    },
+    {
+      "state_name": "AZ",
+      "count": 3
+    },
+    {
+      "state_name": "HI",
+      "count": 2
+    },
+    {
+      "state_name": "PA",
+      "count": 3
+    },
+    {
+      "state_name": "IL",
+      "count": 6
+    },
+    {
+      "state_name": "CT",
+      "count": 1
+    },
+    {
+      "state_name": "NJ",
+      "count": 6
+    },
+    {
+      "state_name": "NE",
+      "count": 2
+    },
+    {
+      "state_name": "CO",
+      "count": 1
+    },
+    {
+      "state_name": "MS",
+      "count": 1
+    },
+    {
+      "state_name": "CA",
+      "count": 12
+    },
+    {
+      "state_name": "MA",
+      "count": 5
+    },
+    {
+      "state_name": "DC",
+      "count": 1
+    },
+    {
+      "state_name": "IN",
+      "count": 9
+    },
+    {
+      "state_name": "MI",
+      "count": 4
+    },
+    {
+      "state_name": "GA",
+      "count": 7
+    },
+    {
+      "state_name": "OH",
+      "count": 8
+    },
+    {
+      "state_name": "TN",
+      "count": 2
+    },
+    {
+      "state_name": "FL",
+      "count": 3
+    },
+    {
+      "state_name": "MN",
+      "count": 1
+    },
+    {
+      "state_name": "LA",
+      "count": 2
+    },
+    {
+      "state_name": "MD",
+      "count": 2
+    },
+    {
+      "state_name": "RI",
+      "count": 1
+    },
+    {
+      "state_name": "SC",
+      "count": 1
+    },
+    {
+      "state_name": "WA",
+      "count": 1
+    },
+    {
+      "state_name": "WI",
+      "count": 1
+    },
+    {
+      "state_name": "IA",
+      "count": 1
+    },
+    {
+      "state_name": "TX",
+      "count": 8
+    },
+    {
+      "state_name": "NC",
+      "count": 7
+    },
+    {
+      "state_name": "NY",
+      "count": 1
+    },
+    {
+      "state_name": "KS",
+      "count": 1
+    }
+  ]
 }
