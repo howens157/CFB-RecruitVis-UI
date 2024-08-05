@@ -5,27 +5,40 @@ import States from "./States";
 import RecruitCircles from "./RecruitCircles";
 import SchoolLogo from "./SchoolLogo";
 import { SchoolDataType } from "@/types/recruitTypes";
-import useSchoolData from "@/hooks/useSchoolData";
 import { useAppSelector } from "@/lib/hooks";
+import { StateGeoFeatures, StateGeoJson } from "@/types/geoTypes";
+import { useMemo } from "react";
 
 type PlayerMapChartProps = {
   schoolData: SchoolDataType | null;
   loading: boolean;
 };
 
-export default function PlayerMapChart({schoolData, loading}: PlayerMapChartProps) {
+const usGeoData = us_geo_data as StateGeoFeatures;
+
+export default function PlayerMapChart({
+  schoolData,
+  loading,
+}: PlayerMapChartProps) {
   const mapTitle = useAppSelector((state) => state.typography.mapTitle);
-  // call useSchoolData hook
-  
-  let projection = geoAlbersUsa().fitExtent(
-    [
-      [0, 0],
-      [800, 600],
-    ],
-    us_geo_data
+
+  let projection = useMemo(
+    () =>
+      geoAlbersUsa().fitExtent(
+        [
+          [0, 0],
+          [800, 600],
+        ],
+        usGeoData
+      ),
+    []
   );
 
-  let pathGenerator = geoPath().projection(projection);
+  let pathGenerator = useMemo(
+    () => geoPath().projection(projection),
+    [projection]
+  );
+
   return (
     <Box
       display="flex"
@@ -44,7 +57,10 @@ export default function PlayerMapChart({schoolData, loading}: PlayerMapChartProp
       }}
     >
       <svg viewBox="0 0 800 600">
-        <States pathGenerator={pathGenerator} features={us_geo_data.features} />
+        <States
+          pathGenerator={pathGenerator}
+          features={usGeoData.features as StateGeoJson[]}
+        />
         {!loading && schoolData && (
           <>
             <RecruitCircles

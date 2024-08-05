@@ -7,7 +7,7 @@ export default function PieSkeleton() {
   return (
     <g transform={`translate(250, 300)`}>
       <path
-        stroke="black"
+        stroke="white"
         strokeWidth={2}
         fill="#ddd"
         d={arcGenerator({
@@ -17,7 +17,7 @@ export default function PieSkeleton() {
           startAngle: 0,
           endAngle: 6.283185307179587,
           padAngle: 0,
-        })}
+        }) || ""}
       />
     </g>
   );

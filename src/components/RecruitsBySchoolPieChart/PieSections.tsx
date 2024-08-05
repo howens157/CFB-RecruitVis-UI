@@ -85,7 +85,7 @@ export default function PieSections(props: PieSectionsPropType) {
           }}
           fill={colorScale(arcSection.data.state_name)}
           key={`${arcSection.data.state_name}_pie_section`}
-          d={arcGenerator(arcSection)}
+          d={arcGenerator(arcSection) || ""}
           onMouseMove={(e) => handleMouseMove(e, arcSection.data)}
           onMouseOut={handleMouseOut}
         />

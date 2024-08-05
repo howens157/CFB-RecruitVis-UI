@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
+import { getCurrentYear } from "@/utils/dateUtils";
 
 const autocompleteStyles = (textColor: string): SxProps<Theme> | undefined => {
   return {
@@ -73,15 +74,21 @@ const sliderStyles = (textColor: string): SxProps<Theme> | undefined => {
   };
 };
 
+type ControlType = {
+  searchState: [string, React.Dispatch<React.SetStateAction<string>>];
+  sliderState: [number[], React.Dispatch<React.SetStateAction<number[]>>]
+}
+
 const RecruitsBySchoolControls = React.memo(
-  function RecruitsBySchoolControls() {
+  function RecruitsBySchoolControls({searchState: [searchVal, setSearchVal], sliderState: [sliderVal, setSliderVal]}: ControlType) {
     const {
       data: allTeams,
       loading: allTeamsLoading,
       error: allTeamsError,
     } = useAllTeams();
+    const [localSliderVal, setLocalSliderVal] = useState<number[]>(sliderVal);
     const textColor = useAppSelector((state) => state.color.textColor);
-    const [sliderValue, setSliderValue] = useState<number[]>([2012, 2024]);
+    const currentYear = getCurrentYear();
 
     return (
       <Box
@@ -101,9 +108,12 @@ const RecruitsBySchoolControls = React.memo(
         {!allTeamsLoading && !allTeamsError && allTeams && (
           <>
             <Autocomplete
-              disablePortal
-              id="combo-box-demo"
+              // disablePortal
               options={allTeams}
+              value={searchVal}
+              onChange={(e, v) => {
+                setSearchVal(v as string)
+              }}
               sx={autocompleteStyles(textColor)}
               renderInput={(params) => <TextField {...params} label="Team" />}
             />
@@ -111,15 +121,18 @@ const RecruitsBySchoolControls = React.memo(
               sx={{ width: "60%", marginLeft: "40px", marginBottom: "-28px" }}
             >
               <Slider
-                value={sliderValue}
-                onChange={(event: Event, newValue: number | number[]) => {
-                  setSliderValue(newValue as number[]);
+                value={localSliderVal}
+                onChange={(event: Event | React.SyntheticEvent<Element, Event>, newValue: number | number[]) => {
+                  setLocalSliderVal(newValue as number[]);
+                }}
+                onChangeCommitted={(event: Event | React.SyntheticEvent<Element, Event>, newValue: number | number[]) => {
+                  setSliderVal(newValue as number[]);
                 }}
                 min={2000}
-                max={2025}
+                max={currentYear}
                 marks={[
                   { value: 2000, label: "2000" },
-                  { value: 2025, label: "2025" },
+                  { value: currentYear, label: `${currentYear}` },
                 ]}
                 valueLabelDisplay="on"
                 sx={sliderStyles(textColor)}

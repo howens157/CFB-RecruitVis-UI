@@ -20,6 +20,8 @@ export default function RecruitsBySchoolVis() {
 
   return (
     <Box display="flex" flexDirection="column">
+      <h6>{schoolName}</h6>
+      <h6>{JSON.stringify(yearRange)}</h6>
       <Paper
         sx={{
           backgroundColor: paperColor,
@@ -61,7 +63,10 @@ export default function RecruitsBySchoolVis() {
           },
         }}
       >
-        <RecruitsBySchoolControls />
+        <RecruitsBySchoolControls 
+          searchState={[schoolName, setSchoolName]}
+          sliderState={[yearRange, setYearRange]}
+        />
       </Paper>
     </Box>
   );
