@@ -27,7 +27,7 @@ export default function RecruitsBySchool() {
         yearEnd: yearRange[1],
       })
     );
-  }, [schoolName, yearRange]);
+  }, [schoolName, yearRange, dispatch]);
 
   return (
     <Box

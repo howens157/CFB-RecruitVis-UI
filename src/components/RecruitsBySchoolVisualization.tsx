@@ -39,7 +39,7 @@ const RecruitsBySchoolVisualization = React.memo(
       } else {
         dispatch(setColors({ color: "", altColor: "" }));
       }
-    }, [schoolData]);
+    }, [schoolData, dispatch]);
 
     useEffect(() => {
       let timeout: NodeJS.Timeout;
