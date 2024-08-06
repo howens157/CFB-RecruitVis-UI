@@ -10,7 +10,7 @@ interface TypographyState {
 const initialState: TypographyState = {
   title: "Select a School to Get Started!", // default white color
   mapTitle: "Geographic Distribution of Recruits",
-  pieTitle: "Most Recruited States"
+  pieTitle: "Most Recruited States",
 };
 
 const typographySlice = createSlice({
@@ -18,9 +18,20 @@ const typographySlice = createSlice({
   initialState,
   reducers: {
     setSchoolFilters: (state, action: PayloadAction<RecruitsFilter>) => {
-      state.title = action.payload.schoolName;
-      state.mapTitle = action.payload.schoolName;
-      state.pieTitle = action.payload.schoolName;
+      const { schoolName, yearStart, yearEnd } = action.payload;
+      if (!schoolName) {
+        state.title = initialState.title;
+        state.mapTitle = initialState.mapTitle;
+        state.pieTitle = initialState.pieTitle;
+      } else {
+        state.mapTitle = `Geographic Distribution of ${schoolName} Recruits`;
+        state.pieTitle = `${schoolName} Most Recruited States`;
+        if (yearEnd > yearStart) {
+          state.title = `${schoolName} Recruiting Breakdown ${yearStart} - ${yearEnd}`;
+        } else {
+          state.title = `${schoolName} Recruiting Breakdown ${yearEnd}`;
+        }
+      }
     },
   },
 });

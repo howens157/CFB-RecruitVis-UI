@@ -1,9 +1,9 @@
 import { GeoProjection } from "d3-geo";
 
 type SchoolLogoProp = {
-  lat: number | null;
-  lng: number | null;
-  imgSrc: string | null;
+  lat: number | null | undefined;
+  lng: number | null | undefined;
+  imgSrc: string | null | undefined;
   projection: GeoProjection;
 };
 
@@ -11,7 +11,7 @@ export default function SchoolLogo(props: SchoolLogoProp) {
   const { lat, lng, imgSrc, projection } = props;
 
   // Return nothing if lat, lng, or imgSrc are null
-  if (lat === null || lng === null || imgSrc === null) {
+  if (!lat || !lng || !imgSrc) {
     return null;
   }
 

@@ -1,10 +1,10 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { GeoProjection } from "d3-geo";
 import stateCenters from "@/static/stateCenters.json";
 import { pointer, scaleSqrt } from "d3";
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { PlayerStateDataType } from "@/types/recruitTypes";
+import { stateCountZeroes } from "./Constants";
 
 type StateCenterType = {
   [key: string]: {
@@ -14,17 +14,26 @@ type StateCenterType = {
 };
 
 type RecruitCirclesProp = {
-  playerStateData: PlayerStateDataType[] | null;
+  stateCounts: { [key: string]: number };
   circleColor: string;
   projection: GeoProjection;
 };
 
 const stateCentersTyped: StateCenterType = stateCenters;
 
+// Idea, have 50 circles regardless, and just set radius to 0 if there are none in that state, store old radius and new radius so you can
+// animate between them
 export default function RecruitCircles(props: RecruitCirclesProp) {
-  const { playerStateData, projection, circleColor } = props;
+  const { stateCounts, projection, circleColor } = props;
 
-  //TODO: scale domain based on length of years range
+  const prevStatesRef = useRef<{ [key: string]: number }>(stateCountZeroes);
+  const prevStates = prevStatesRef.current;
+
+  // Update ref to store previous states whenever states change
+  useEffect(() => {
+    prevStatesRef.current = stateCounts;
+  }, [stateCounts]);
+
   const rPopScale = useMemo(
     () => scaleSqrt().domain([0, 200]).range([1, 100]),
     []
@@ -37,7 +46,11 @@ export default function RecruitCircles(props: RecruitCirclesProp) {
   } | null>(null);
 
   const handleMouseMove = useCallback(
-    (event: React.MouseEvent<SVGCircleElement>, state: PlayerStateDataType) => {
+    (
+      event: React.MouseEvent<SVGCircleElement>,
+      name: string,
+      count: number
+    ) => {
       let [xPosition, yPosition] = pointer(event);
       if (xPosition + 100 > 600) {
         xPosition = xPosition - 100;
@@ -45,7 +58,7 @@ export default function RecruitCircles(props: RecruitCirclesProp) {
       setTooltip({
         x: xPosition,
         y: yPosition,
-        content: `${state.state_name}: ${state.count}`,
+        content: `${name}: ${count}`,
       });
     },
     [] // Dependencies array: This callback doesn't depend on any external state or props
@@ -55,27 +68,43 @@ export default function RecruitCircles(props: RecruitCirclesProp) {
     setTooltip(null);
   }, []); // Dependencies array: This callback doesn't depend on any external state or props
 
+  // sort in largest counts to smallest so larger circles don't obscure smaller ones
+  const sortedStateCounts = useMemo(() => {
+    return Object.entries(stateCounts).sort((a, b) => b[1] - a[1]);
+  }, [stateCounts]);
+
   return (
     <>
-      {playerStateData?.map((state) => {
-        let stateCenter = stateCentersTyped[state.state_name];
+      {sortedStateCounts.map((state) => {
+        const [name, count] = state;
+        const prevCount = prevStates[name];
+        let stateCenter = stateCentersTyped[name];
+
         let mappedCoords = projection([stateCenter.long, stateCenter.lat]);
 
-        if (mappedCoords) {
+        if (mappedCoords && (count > 0 || prevCount > 0)) {
           return (
             <motion.circle
-              key={`${state.state_name}_circle`}
+              key={`${name}_circle`}
               cx={parseFloat(mappedCoords[0].toFixed(10))}
               cy={parseFloat(mappedCoords[1].toFixed(10))}
-              initial={{ r: 0 }}
-              animate={{ r: rPopScale(state.count) }}
-              transition={{ duration: 0.1 }}
+              initial={{
+                r: rPopScale(prevCount),
+                strokeWidth: 2,
+                fillOpacity: 0.7,
+              }}
+              animate={{
+                r: rPopScale(count),
+                strokeWidth: count > 0 ? 2 : 0,
+                fillOpacity: count > 0 ? 0.7 : 0,
+              }}
+              transition={{ duration: 1 }}
               fillOpacity={0.7}
               fill={circleColor}
-              stroke="black"
+              stroke="white"
               whileHover={{ strokeWidth: 4 }}
               strokeWidth={2}
-              onMouseMove={(e) => handleMouseMove(e, state)}
+              onMouseMove={(e) => handleMouseMove(e, name, count)}
               onMouseOut={handleMouseOut}
             />
           );

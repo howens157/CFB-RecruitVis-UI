@@ -1,14 +1,13 @@
 import { GeoPath, GeoPermissibleObjects } from "d3-geo";
 import React from "react";
-import { StateGeoJson } from "@/types/geoTypes";
+import { Feature } from "geojson";
 
 type StatePropType = {
-  features: StateGeoJson[];
+  features: Feature[];
   pathGenerator: GeoPath<any, GeoPermissibleObjects>;
 };
 
 const States: React.FC<StatePropType> = ({ features, pathGenerator }) => {
-  console.log("states rerendering");
 
   return (
     <>
@@ -16,7 +15,7 @@ const States: React.FC<StatePropType> = ({ features, pathGenerator }) => {
         <path
           stroke="#aaa"
           fill="#ddd"
-          key={`${feature.properties.STATE}_path`}
+          key={`${feature.id}_path`}
           d={pathGenerator(feature) || ""}
         />
       ))}

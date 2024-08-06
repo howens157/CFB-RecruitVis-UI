@@ -8,7 +8,8 @@ const useAllTeams = () => {
   useEffect(() => {
     setLoading(true);
     setError(false);
-    fetch("http://127.0.0.1:8000/teams", {
+    const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/teams`);
+    fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

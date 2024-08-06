@@ -1,21 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import nd_recruit_info from "@/static/nd_recruit_info.json";
-import { useState, useEffect } from "react";
-import PieSections from "./PieSections";
-import PieLegend from "./PieLegend";
-import { scaleOrdinal, schemeSet3 } from "d3";
-import { PlayerStateDataType, SchoolDataType } from "@/types/recruitTypes";
+// import PieSections from "./PieSections";
+// import PieLegend from "./PieLegend";
+import { SchoolDataType } from "@/types/recruitTypes";
 import PieSkeleton from "./PieSkeleton";
+import { scaleLinear, scaleOrdinal } from "d3";
 import { useAppSelector } from "@/lib/hooks";
+import dynamic from 'next/dynamic';
+const PieSections = dynamic(() => import('./PieSections'));
+const PieLegend = dynamic(() => import('./PieLegend'));
 
 type PieChartProps = {
   schoolData: SchoolDataType | null;
-  loading: boolean;
 };
 
 const aggregateStatesToTop5 = (data: SchoolDataType | null) => {
-  if(data == null) {
-    return null
+  if (data == null) {
+    return null;
   }
   const top5StatesAggregated = data.playerData.slice(0, 5);
   let sumOtherStates = 0;
@@ -30,10 +30,22 @@ const aggregateStatesToTop5 = (data: SchoolDataType | null) => {
   return top5StatesAggregated;
 };
 
-export default function PieChart({schoolData, loading}: PieChartProps) {
-  let colorScale = scaleOrdinal(schemeSet3);
-  const aggregatedPlayerData = aggregateStatesToTop5(schoolData);
+export default function PieChart({ schoolData }: PieChartProps) {
+  const { color, altColor } = useAppSelector((state) => state.color);
   const pieTitle = useAppSelector((state) => state.typography.pieTitle);
+
+  // let colorScale = scaleOrdinal(schemeSet3);
+  const aggregatedPlayerData = aggregateStatesToTop5(schoolData);
+  const lengthData = aggregatedPlayerData?.length;
+
+  const colors: string[] = [];
+  const linearScale = scaleLinear([0, lengthData || 1], [color, altColor]);
+  for (let i = 0; i < (lengthData || 1); i++) {
+    colors.push(linearScale(i));
+  }
+
+
+  const colorScale = scaleOrdinal(colors);
 
   return (
     <Box
@@ -43,38 +55,49 @@ export default function PieChart({schoolData, loading}: PieChartProps) {
       alignItems="center"
       sx={{
         height: {
-          xs: "400px", // below md breakpoint
-          md: "600px", // above md breakpoint
-        },
-        marginTop: {
-          xl: "0px",
-          lg: "-100px",
-          md: "-200px",
-          sm: "-210px",
-          xs: "-270px",
+          xl: "100%",
         },
       }}
     >
-      <svg viewBox="0 0 500 600">
-        {(!loading && aggregatedPlayerData != null) ? <>
-          <PieSections
-            playerData={aggregatedPlayerData}
-            colorScale={colorScale}
-          />
-          <PieLegend playerData={aggregatedPlayerData} colorScale={colorScale} />
-        </> :
-        <PieSkeleton/>
-        }
-      </svg>
+      <Box
+        sx={{
+          width: {
+            xl: "calc(min(500px, 30vw))",
+            xs: "50vw",
+          },
+          height: {
+            xl: "550px",
+          },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <svg viewBox="0 0 500 400" style={{ width: "100%" }}>
+          {aggregatedPlayerData != null ? (
+            <>
+              <PieSections
+                playerData={aggregatedPlayerData}
+                colorScale={colorScale}
+              />
+              <PieLegend
+                playerData={aggregatedPlayerData}
+                colorScale={colorScale}
+              />
+            </>
+          ) : (
+            <PieSkeleton />
+          )}
+        </svg>
+      </Box>
       <Typography
         sx={{
-          fontSize: "18px",
-          fontWeight: "700",
-          textAlign: "center",
-          marginTop: {
-            xs: "-50px",
-            md: "-15px",
+          fontSize: "calc(min(18px, 4vw))",
+          fontWeight: {
+            xs: '500',
+            md: '700'
           },
+          textAlign: "center",
         }}
       >
         {pieTitle}

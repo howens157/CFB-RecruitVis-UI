@@ -15,7 +15,14 @@ import { getCurrentYear } from "@/utils/dateUtils";
 
 const autocompleteStyles = (textColor: string): SxProps<Theme> | undefined => {
   return {
-    width: "300px", // Ensure a max-width for the autocomplete
+    width: {
+      lg: "300px",
+      xs: "70vw",
+    }, // Ensure a max-width for the autocomplete
+    marginTop: {
+      lg: 0,
+      xs: '10px'
+    },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         borderColor: textColor, // Default border color
@@ -53,7 +60,10 @@ const autocompleteStyles = (textColor: string): SxProps<Theme> | undefined => {
   };
 };
 
-const sliderStyles = (textColor: string): SxProps<Theme> | undefined => {
+const sliderStyles = (
+  textColor: string,
+  backgroundColor: string
+): SxProps<Theme> | undefined => {
   return {
     color: textColor,
     "& .MuiSlider-thumb": {
@@ -71,78 +81,109 @@ const sliderStyles = (textColor: string): SxProps<Theme> | undefined => {
     "& .MuiSlider-markLabel": {
       color: textColor, // Color of the mark labels
     },
+    "& .MuiSlider-valueLabel": {
+      backgroundColor: backgroundColor, // Background color of the value label
+      color: textColor, // Color of the value label text
+      borderRadius: "4px", // Optional: Add border radius for better appearance
+      "& *": {
+        background: "transparent", // Remove the default background color
+      },
+    },
   };
 };
 
 type ControlType = {
   searchState: [string, React.Dispatch<React.SetStateAction<string>>];
-  sliderState: [number[], React.Dispatch<React.SetStateAction<number[]>>]
-}
+  sliderState: [number[], React.Dispatch<React.SetStateAction<number[]>>];
+};
 
-const RecruitsBySchoolControls = React.memo(
-  function RecruitsBySchoolControls({searchState: [searchVal, setSearchVal], sliderState: [sliderVal, setSliderVal]}: ControlType) {
-    const {
-      data: allTeams,
-      loading: allTeamsLoading,
-      error: allTeamsError,
-    } = useAllTeams();
-    const [localSliderVal, setLocalSliderVal] = useState<number[]>(sliderVal);
-    const textColor = useAppSelector((state) => state.color.textColor);
-    const currentYear = getCurrentYear();
+const RecruitsBySchoolControls = ({
+  searchState: [searchVal, setSearchVal],
+  sliderState: [sliderVal, setSliderVal],
+}: ControlType) => {
+  const {
+    data: allTeams,
+    loading: allTeamsLoading,
+    error: allTeamsError,
+  } = useAllTeams();
+  const [localSliderVal, setLocalSliderVal] = useState<number[]>(sliderVal);
+  const { textColor, backgroundColor } = useAppSelector((state) => state.color);
+  const currentYear = getCurrentYear();
 
-    return (
-      <Box
-        sx={{
-          width: "calc(100% - 20px)",
-          padding: "10px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "85px",
-        }}
-      >
-        {allTeamsLoading && <LinearProgress sx={{ width: "100%" }} />}
-        {!allTeamsLoading && allTeamsError && (
-          <ErrorIcon sx={{ width: "30px", height: "30px", color: textColor }} />
-        )}
-        {!allTeamsLoading && !allTeamsError && allTeams && (
-          <>
-            <Autocomplete
-              // disablePortal
-              options={allTeams}
-              value={searchVal}
-              onChange={(e, v) => {
-                setSearchVal(v as string)
+  return (
+    <Box
+      sx={{
+        width: "calc(100% - 20px)",
+        padding: "10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "85px",
+        flexDirection: {
+          lg: "row",
+          xs: "column-reverse",
+        },
+        paddingTop: {
+          lg: "10px",
+          xs: "40px",
+        },
+      }}
+    >
+      {allTeamsLoading && <LinearProgress sx={{ width: "100%" }} />}
+      {!allTeamsLoading && allTeamsError && (
+        <ErrorIcon sx={{ width: "30px", height: "30px", color: textColor }} />
+      )}
+      {!allTeamsLoading && !allTeamsError && allTeams && (
+        <>
+          <Autocomplete
+            disableClearable
+            options={allTeams}
+            value={searchVal}
+            onChange={(e, v) => {
+              setSearchVal(v as string);
+            }}
+            sx={autocompleteStyles(textColor)}
+            renderInput={(params) => <TextField {...params} label="Team" />}
+          />
+          <Box
+            sx={{
+              width: {
+                lg: "60%",
+                xs: "90%",
+              },
+              marginLeft: {lg: "40px", xs: '30px'},
+              marginBottom: "-28px",
+              marginRight: "30px",
+            }}
+          >
+            <Slider
+              value={localSliderVal}
+              onChange={(
+                event: Event | React.SyntheticEvent<Element, Event>,
+                newValue: number | number[]
+              ) => {
+                setLocalSliderVal(newValue as number[]);
               }}
-              sx={autocompleteStyles(textColor)}
-              renderInput={(params) => <TextField {...params} label="Team" />}
+              onChangeCommitted={(
+                event: Event | React.SyntheticEvent<Element, Event>,
+                newValue: number | number[]
+              ) => {
+                setSliderVal(newValue as number[]);
+              }}
+              min={2000}
+              max={currentYear}
+              marks={[
+                { value: 2000, label: "2000" },
+                { value: currentYear, label: `${currentYear}` },
+              ]}
+              valueLabelDisplay="on"
+              sx={sliderStyles(textColor, backgroundColor)}
             />
-            <Box
-              sx={{ width: "60%", marginLeft: "40px", marginBottom: "-28px" }}
-            >
-              <Slider
-                value={localSliderVal}
-                onChange={(event: Event | React.SyntheticEvent<Element, Event>, newValue: number | number[]) => {
-                  setLocalSliderVal(newValue as number[]);
-                }}
-                onChangeCommitted={(event: Event | React.SyntheticEvent<Element, Event>, newValue: number | number[]) => {
-                  setSliderVal(newValue as number[]);
-                }}
-                min={2000}
-                max={currentYear}
-                marks={[
-                  { value: 2000, label: "2000" },
-                  { value: currentYear, label: `${currentYear}` },
-                ]}
-                valueLabelDisplay="on"
-                sx={sliderStyles(textColor)}
-              />
-            </Box>
-          </>
-        )}
-      </Box>
-    );
-  }
-);
+          </Box>
+        </>
+      )}
+    </Box>
+  );
+};
 
 export default RecruitsBySchoolControls;

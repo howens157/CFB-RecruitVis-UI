@@ -8,7 +8,6 @@ const roboto = Roboto({
   display: "swap",
 });
 
-
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -21,6 +20,14 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
+  },
+  palette: {
+    primary: {
+      main: "#666666",
+      light: "#ffffff",
+      dark: "#aaaaaa",
+      contrastText: "#fff",
+    },
   },
 });
 

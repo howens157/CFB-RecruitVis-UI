@@ -1,6 +1,6 @@
 import { PlayerStateDataType } from "@/types/recruitTypes";
-import { Typography, useTheme } from "@mui/material";
-import { PieArcDatum, ScaleOrdinal, arc, pie, pointer } from "d3";
+import { useTheme } from "@mui/material";
+import { ScaleOrdinal, arc, pie, pointer } from "d3";
 import React, { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 
@@ -69,19 +69,16 @@ export default function PieSections(props: PieSectionsPropType) {
   }, []); // Dependency array: this callback doesn't depend on any external state or props
 
   return (
-    <g transform={`translate(190, 300)`}>
+    <g transform={`translate(190, 200)`}>
       {arcData.map((arcSection) => (
         <motion.path
-          stroke="black"
+          stroke="white"
           strokeWidth={2}
           whileHover={{
-            strokeWidth: 4,
-            scale: 1.05,
+            strokeWidth: 6,
           }}
           transition={{
-            default: { duration: 0.2 }, // Speed up the scaling back down
-            scale: { duration: 0.2 },
-            strokeWidth: { duration: 0.2 },
+            default: { duration: 0.2 },
           }}
           fill={colorScale(arcSection.data.state_name)}
           key={`${arcSection.data.state_name}_pie_section`}
@@ -106,7 +103,7 @@ export default function PieSections(props: PieSectionsPropType) {
             x={tooltip.x + 15}
             y={tooltip.y + 35}
             fill="white"
-            fontSize={"1rem"}
+            fontSize={"18px"}
             fontFamily={theme.typography.fontFamily}
             pointerEvents="none"
           >
