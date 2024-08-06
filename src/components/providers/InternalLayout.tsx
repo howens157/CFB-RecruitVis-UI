@@ -4,8 +4,9 @@ import { ThemeProvider } from "@mui/material";
 import theme from "@/theme";
 import NavBar from "@/components/NavBar";
 import { useAppSelector } from "@/lib/hooks";
+import About from "@/components/About";
 
-export default function OtherProviders({
+export default function InternalLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -25,6 +26,7 @@ export default function OtherProviders({
         <ThemeProvider theme={theme}>
           <NavBar />
           {children}
+          <About/>
         </ThemeProvider>
       </AppRouterCacheProvider>
     </body>

@@ -1,5 +1,5 @@
-import RecruitsBySchool from "@/components/RecruitsBySchool";
-import { Box, Grid, Typography } from "@mui/material";
+import RecruitsBySchool from "@/components/recruitsBySchool/RecruitsBySchool";
+import { Box } from "@mui/material";
 
 export default function Home() {
   return (

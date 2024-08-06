@@ -22,9 +22,15 @@ export default function SchoolLogo(props: SchoolLogoProp) {
     return null;
   }
 
+
+  let secureImageSrc: string | null = null;
+  if(imgSrc && imgSrc.substring(0,5) === 'http:') {
+    secureImageSrc = `https:${imgSrc.substring(5)}`
+  }
+
   return (
     <image
-      href={imgSrc}
+      href={secureImageSrc || imgSrc}
       x={mappedCoords[0]-25}
       y={mappedCoords[1]-25}
       width="50"

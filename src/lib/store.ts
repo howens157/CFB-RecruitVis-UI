@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import colorReducer from './colorSlice'
 import typographyReducer from "./typographySlice"
+import layoutReducer from "./layoutSlice"
+
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       color: colorReducer,
-      typography: typographyReducer
+      typography: typographyReducer,
+      layout: layoutReducer
     },
   })
 }

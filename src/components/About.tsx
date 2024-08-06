@@ -15,11 +15,13 @@ export default function About() {
   );
   const { drawerOpen } = useAppSelector((state) => state.layout);
   const dispatch = useAppDispatch();
+
   return (
     <Drawer
       open={drawerOpen}
       onClose={() => dispatch(toggleDrawer())}
       anchor="bottom"
+      sx={{}}
       PaperProps={{
         sx: {
           borderRadius: "30px 30px 0 0",
@@ -27,6 +29,9 @@ export default function About() {
           boxShadow: "0px 0px 50px #000",
           "& p": { color: textColor },
           alignItems: "center",
+          padding: "20px",
+          maxHeight: "88vh",
+          overflow: "auto",
         },
       }}
     >
@@ -54,36 +59,52 @@ export default function About() {
       >
         <KeyboardArrowDownIcon sx={{ color: textColor }} />
       </motion.div>
+
       <Box
         sx={{
-          maxWidth: "500px",
+          maxWidth: "600px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           padding: "15px 10px 10px 10px",
         }}
       >
-        {/* TODO: Figure out a way to scale the circles dynamically */}
-        {/* TODO: Increase width of pie chart tooltip*/}
         <Image src={icon.src} alt="Football Icon" width={50} height={50} />
-        <Typography>CFB Recruiting Vis</Typography>
-        <Typography>
-          This application is intended to provide some general insights as to
-          where college football programs across the country primarily recruit
-          their players from.
+        <Typography
+          gutterBottom
+          sx={{
+            textAlign: "center",
+            fontSize: "24px",
+            fontWeight: "700",
+            marginTop: "20px",
+          }}
+        >
+          CFB Recruiting Vis
         </Typography>
-        <Typography>
-          Please select a school and a range of years, and don't forget to
-          explore by hovering over the visualizations to see more specific
-          details!
+
+        <Typography gutterBottom sx={{ textAlign: "center" }}>
+          This application provides insights into where college football
+          programs across the country recruit their players.
         </Typography>
-        <Typography>
-          The data source for this visualization is College Football Data. Thank
-          you to them for making a wide range of college football data freely
-          and easily available. Check them out if you are interested in data
-          analytics/visualization regarding college football.
+        <Typography gutterBottom sx={{ textAlign: "center" }}>
+          Select a school and a range of years, and hover over the
+          visualizations for more details!
         </Typography>
-        <a href="https://collegefootballdata.com/" target="_blank">
+
+        <Typography
+          gutterBottom
+          sx={{ textAlign: "center", marginTop: "20px" }}
+        >
+          Data for this visualization is provided by College Football Data.
+          Thanks to them for making a wide range of college football data freely
+          available. Check them out for more data analytics and visualizations
+          on college football.
+        </Typography>
+        <a
+          href="https://collegefootballdata.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <motion.div
             style={{
               borderRadius: "100%",
@@ -105,14 +126,19 @@ export default function About() {
             />
           </motion.div>
         </a>
-        <Typography>
-          If you are interested in seeing how these visualizations were created
-          using d3.js and React, or want to run it yourself and make some
-          changes, feel free to clone the github repository!
+
+        <Typography
+          gutterBottom
+          sx={{ textAlign: "center", marginTop: "20px" }}
+        >
+          Interested in how these visualizations were created using d3.js and
+          React? Clone the GitHub repository to run it yourself and make
+          your own changes!
         </Typography>
         <a
           href="https://github.com/howens157/CFB-RecruitVis-UI"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <motion.div
             style={{
@@ -128,7 +154,7 @@ export default function About() {
               scale: 1.15,
             }}
           >
-            <Image src={githubIcon} alt="Github Repo" width={50} height={50} />
+            <Image src={githubIcon} alt="GitHub Repo" width={50} height={50} />
           </motion.div>
         </a>
       </Box>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import StoreProvider from "./providers/StoreProvider";
-import OtherProviders from "./providers/OtherProviders";
+import StoreProvider from "../components/providers/StoreProvider";
+import OtherProviders from "../components/providers/InternalLayout";
 
 export const metadata: Metadata = {
   title: "CFB Recruit Vis",

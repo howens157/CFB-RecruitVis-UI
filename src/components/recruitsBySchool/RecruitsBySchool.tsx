@@ -45,6 +45,7 @@ export default function RecruitsBySchool() {
             color: textColor,
           },
           paddingBottom: "10px",
+          boxShadow: "5px 5px 10px -5px black",
         }}
       >
         <Typography
@@ -65,6 +66,7 @@ export default function RecruitsBySchool() {
       <Paper
         sx={{
           marginTop: "10px",
+          boxShadow: "5px 5px 10px -5px black",
           backgroundColor: paperColor,
           "& p": {
             color: textColor,

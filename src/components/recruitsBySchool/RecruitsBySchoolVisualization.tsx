@@ -6,8 +6,8 @@ import useSchoolData from "@/hooks/useSchoolData";
 // import SomethingWentWrong from "./SomethingWentWrong";
 import { useAppDispatch } from "@/lib/hooks";
 import { setColors } from "@/lib/colorSlice";
-import dynamic from 'next/dynamic';
-const SomethingWentWrong = dynamic(() => import('./SomethingWentWrong'));
+import dynamic from "next/dynamic";
+const SomethingWentWrong = dynamic(() => import("../SomethingWentWrong"));
 
 type RecruitsBySchoolVisualizationProps = {
   schoolName: string;
@@ -56,8 +56,8 @@ const RecruitsBySchoolVisualization = React.memo(
       }
 
       return () => {
-        clearTimeout(timeout)
-        clearTimeout(longTimeout)
+        clearTimeout(timeout);
+        clearTimeout(longTimeout);
       };
     }, [loading]);
 
@@ -75,7 +75,11 @@ const RecruitsBySchoolVisualization = React.memo(
     return (
       <Grid container>
         <Grid item xs={12} xl={8}>
-          <PlayerMapChart schoolData={schoolData} loading={showLoading} longLoading={longLoading} />
+          <PlayerMapChart
+            schoolData={schoolData}
+            loading={showLoading}
+            longLoading={longLoading}
+          />
         </Grid>
         <Grid item xs={12} xl={4}>
           <PieChart schoolData={schoolData} />
