@@ -3,11 +3,12 @@ import { Box, Typography } from "@mui/material";
 // import PieLegend from "./PieLegend";
 import { SchoolDataType } from "@/types/recruitTypes";
 import PieSkeleton from "./PieSkeleton";
-import { scaleLinear, scaleOrdinal } from "d3";
+import { scaleLinear, scaleOrdinal, schemeTableau10 } from "d3";
 import { useAppSelector } from "@/lib/hooks";
-import dynamic from 'next/dynamic';
-const PieSections = dynamic(() => import('./PieSections'));
-const PieLegend = dynamic(() => import('./PieLegend'));
+import dynamic from "next/dynamic";
+import { colorDistance, hexToRgb } from "@/utils/colorUtils";
+const PieSections = dynamic(() => import("./PieSections"));
+const PieLegend = dynamic(() => import("./PieLegend"));
 
 type PieChartProps = {
   schoolData: SchoolDataType | null;
@@ -35,17 +36,22 @@ export default function PieChart({ schoolData }: PieChartProps) {
   const pieTitle = useAppSelector((state) => state.typography.pieTitle);
 
   // let colorScale = scaleOrdinal(schemeSet3);
+  let colorScale;
   const aggregatedPlayerData = aggregateStatesToTop5(schoolData);
-  const lengthData = aggregatedPlayerData?.length;
 
-  const colors: string[] = [];
-  const linearScale = scaleLinear([0, lengthData || 1], [color, altColor]);
-  for (let i = 0; i < (lengthData || 1); i++) {
-    colors.push(linearScale(i));
+  if (colorDistance(hexToRgb(color), hexToRgb(altColor)) > 300) {
+    const lengthData = aggregatedPlayerData?.length;
+
+    const colors: string[] = [];
+    const linearScale = scaleLinear([0, lengthData || 1], [color, altColor]);
+    for (let i = 0; i < (lengthData || 1); i++) {
+      colors.push(linearScale(i));
+    }
+    colorScale = scaleOrdinal(colors)
   }
-
-
-  const colorScale = scaleOrdinal(colors);
+  else {
+    colorScale = scaleOrdinal(schemeTableau10);
+  }
 
   return (
     <Box
@@ -94,8 +100,8 @@ export default function PieChart({ schoolData }: PieChartProps) {
         sx={{
           fontSize: "calc(min(18px, 4vw))",
           fontWeight: {
-            xs: '500',
-            md: '700'
+            xs: "500",
+            md: "700",
           },
           textAlign: "center",
         }}

@@ -116,3 +116,12 @@ export const rgbToString = (rgb: {
 }): string => {
   return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
 };
+
+// Based on https://www.compuphase.com/cmetric.htm
+export const colorDistance = (e1: { r: number; g: number; b: number }, e2: { r: number; g: number; b: number }) => {
+  let rmean = (e1.r + e2.r) / 2;
+  let r = e1.r - e2.r;
+  let g = e1.g - e2.g;
+  let b = e1.b - e2.b;
+  return Math.sqrt((((512 + rmean) * r * r) >> 8) + 4 * g * g + (((767 - rmean) * b * b) >> 8));
+}
