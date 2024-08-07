@@ -1,16 +1,16 @@
 # CFB Recruiting Vis
 
-CFB Recruiting Vis is an application designed to provide insights into where college football programs across the country primarily recruit their players. This visualization tool allows users to select a school and a range of years to explore recruitment data through interactive visualizations.
+CFB Recruiting Vis is an application designed to provide insights into where college football programs across the country primarily recruit their players. This visualization tool allows users to select a school and a range of years to explore the geographic concentration of college football recruits per school. More visualizations of other college football data will hopefully be added in the future!
 
 ## Features
 
-- **Interactive Visualizations**: Hover over the visualizations to see specific details about recruitment data.
+- **Interactive Visualization**: Hover over the visualization to see specific details on recruit numbers per state.
 - **School and Year Selection**: Customize the data view by selecting different schools and ranges of years.
 - **Data Source**: The data for this visualization is provided by College Football Data, which offers a wide range of freely available college football data.
 
 ## Data Source
 
-Data for this visualization is provided by [College Football Data](https://collegefootballdata.com/). We extend our gratitude to them for making a wide range of college football data freely and easily accessible. Visit their website for more data analytics and visualizations regarding college football.
+Data for this visualization is provided by [College Football Data](https://collegefootballdata.com/). Big thanks to them for making a wide range of college football data freely and easily accessible. Visit their website for more data analytics and visualizations regarding college football.
 
 ## How to Clone and Run the Project
 
@@ -22,28 +22,35 @@ To clone and run this project, follow these steps:
 
 ### Installation
 
-1. **Clone the repository**:
+**Clone the repository**:
 
    ```bash
    git clone https://github.com/howens157/CFB-RecruitVis-UI.git
 
    ```
 
-2. **Navigate to the project directory**:
+**Navigate to the project directory**:
 
    ```bash
    git clone https://github.com/howens157/CFB-RecruitVis-UI.git
    ```
 
-3. **Install the dependencies**:
+**Install the dependencies**:
 
    ```bash
    npm install
    ```
 
+### Backend Dependency
+To run the app locally, you have two options:
+
+**Run the Backend Locally**: Clone and run [CFB Recruit Vis Service](https://github.com/howens157/CFB-RecruitVis-Service) by following the instructions listed there.
+
+**Use the Production API**: Replace the contents of the .env file with the contents of the .env.production file to point API calls to the production environment.
+
 ### Running the Application
 
-4. **Start the development server**:
+**Start the development server**:
 
    ```bash
    npm install
