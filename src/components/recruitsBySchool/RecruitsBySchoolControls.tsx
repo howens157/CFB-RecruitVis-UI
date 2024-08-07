@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
-import { getCurrentYear } from "@/utils/dateUtils";
+import { getCurrentRecruitingYear } from "@/utils/dateUtils";
 
 const autocompleteStyles = (textColor: string): SxProps<Theme> | undefined => {
   return {
@@ -21,7 +21,7 @@ const autocompleteStyles = (textColor: string): SxProps<Theme> | undefined => {
     }, // Ensure a max-width for the autocomplete
     marginTop: {
       lg: 0,
-      xs: '10px'
+      xs: "10px",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
@@ -108,7 +108,7 @@ const RecruitsBySchoolControls = ({
   } = useAllTeams();
   const [localSliderVal, setLocalSliderVal] = useState<number[]>(sliderVal);
   const { textColor, backgroundColor } = useAppSelector((state) => state.color);
-  const currentYear = getCurrentYear();
+  const currentYear = getCurrentRecruitingYear();
 
   return (
     <Box
@@ -151,7 +151,7 @@ const RecruitsBySchoolControls = ({
                 lg: "60%",
                 xs: "90%",
               },
-              marginLeft: {lg: "40px", xs: '30px'},
+              marginLeft: { lg: "40px", xs: "30px" },
               marginBottom: "-28px",
               marginRight: "30px",
             }}

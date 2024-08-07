@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import React, { useEffect, useState } from "react";
 import RecruitsBySchoolControls from "./RecruitsBySchoolControls";
 import RecruitsBySchoolVisualization from "./RecruitsBySchoolVisualization";
-import { getCurrentYear } from "@/utils/dateUtils";
+import { getCurrentRecruitingYear } from "@/utils/dateUtils";
 import { setSchoolFilters } from "@/lib/typographySlice";
 
 export default function RecruitsBySchool() {
@@ -12,7 +12,7 @@ export default function RecruitsBySchool() {
   const textColor = useAppSelector((state) => state.color.textColor);
   const title = useAppSelector((state) => state.typography.title);
   const [schoolName, setSchoolName] = useState<string>("");
-  const currentYear = getCurrentYear();
+  const currentYear = getCurrentRecruitingYear();
   const [yearRange, setYearRange] = useState<number[]>([
     currentYear - 1,
     currentYear,
