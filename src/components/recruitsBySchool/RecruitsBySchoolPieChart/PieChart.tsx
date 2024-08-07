@@ -18,7 +18,7 @@ const aggregateStatesToTop5 = (data: SchoolDataType | null) => {
   if (data == null) {
     return null;
   }
-  const top5StatesAggregated = data.playerData.slice(0, 5);
+  const top5StatesAggregated = data.playerData.toSorted((a,b) => b.count - a.count).slice(0, 5);
   let sumOtherStates = 0;
   for (let i = 5; i < data.playerData.length; i++) {
     sumOtherStates += data.playerData[i].count;
