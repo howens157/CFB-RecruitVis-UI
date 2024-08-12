@@ -92,7 +92,7 @@ export default function PieSections(props: PieSectionsPropType) {
           <rect
             x={tooltip.x + 10}
             y={tooltip.y + 10}
-            width={200}
+            width={230}
             height={40}
             fill="rgba(0, 0, 0, 0.75)"
             rx={5}
