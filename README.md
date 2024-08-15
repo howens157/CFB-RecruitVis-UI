@@ -1,5 +1,7 @@
 # CFB Recruiting Vis
 
+Check it out at https://cfbrecruits.com
+
 CFB Recruiting Vis is an application designed to provide insights into where college football programs across the country primarily recruit their players. This visualization tool allows users to select a school and a range of years to explore the geographic concentration of college football recruits per school. More visualizations of other college football data will hopefully be added in the future!
 
 ## Features
@@ -10,7 +12,7 @@ CFB Recruiting Vis is an application designed to provide insights into where col
 
 ## Data Source
 
-Data for this visualization is provided by [College Football Data](https://collegefootballdata.com/). Big thanks to them for making a wide range of college football data freely and easily accessible. Visit their website for more data analytics and visualizations regarding college football.
+Team data for this visualization is provided by [College Football Data](https://collegefootballdata.com/) and recruiting data was sourced from [247Sports](https://247sports.com/)
 
 ## How to Clone and Run the Project
 
