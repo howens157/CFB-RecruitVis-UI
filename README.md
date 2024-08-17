@@ -44,9 +44,7 @@ To clone and run this project, follow these steps:
    ```
 
 ### Backend Dependency
-To run the app locally, you have two options:
-
-**Run the Backend Locally**: Clone and run [CFB Recruit Vis Service](https://github.com/howens157/CFB-RecruitVis-Service) by following the instructions listed there.
+To run the app locally:
 
 **Use the Production API**: Replace the contents of the .env file with the contents of the .env.production file to point API calls to the production environment.
 
