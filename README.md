@@ -53,7 +53,7 @@ To run the app locally:
 **Start the development server**:
 
    ```bash
-   npm install
+   npm run dev
    ```
 
 ## Improvements and Bug Fixes
